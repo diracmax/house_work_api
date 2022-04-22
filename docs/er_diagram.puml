@@ -1,0 +1,28 @@
+@startuml ER
+
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "ユーザー" as users {
+    + user_id
+    --
+    # name
+    # hashed_password
+    # line_token
+}
+
+entity "家事" as houseworks {
+    + housework_id
+    --
+    # user_id <FK>
+    # name
+    # interval_day
+    # last_notification_day
+}
+
+users ||--o{ houseworks
+
+@enduml

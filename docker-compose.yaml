@@ -2,17 +2,21 @@ version: '3'
 
 services:
   db:
-    container_name: mysql
+    platform: linux/x86_64
     build:
-      context: ./db
-    tty: true
-    restart: always
+      context: db
+      dockerfile: ./Dockerfile
     ports:
-    - 3306:3306
+      - 3306:3306
     environment:
       MYSQL_DATABASE: db
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      TZ: 'Asia/Tokyo'
+      LANG: 'ja_JP.UTF-8'
+    tty: true
+    restart: always
+    user: root
     volumes:
-    - ./db/data:/var/lib/mysql
-    - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
-    - ./db/init:/docker-entrypoint-initdb.d
+      - ./db/init:/docker-entrypoint-initdb.d
+      - ./db/data:/data
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
