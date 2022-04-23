@@ -1,9 +1,13 @@
+from typing import Optional
+from interface_adapters.controller.user_controller import UserController
+from interface_adapters.presenter.user_presenter import UserPresenter
 from enterprise_business_rules.entity.user import User
 from fastapi import FastAPI, Form, Request
 from mysql import connector
 from fastapi.responses import JSONResponse
 from werkzeug.exceptions import Conflict, NotFound
 from http import HTTPStatus
+from pydantic import BaseModel
 
 from frameworks_and_drivers.db.user_repository import UserRepository
 
@@ -33,9 +37,17 @@ def read_root():
     )
 
 
-@app.get("/users")
-def get(request: Request):
-    pass
+class UserForPost(BaseModel):
+    name: str
+    password: str
+    line_token: Optional[str] = None
+
+
+@app.post("/users")
+def post(user: UserForPost):
+    return JSONResponse(
+        content={"Hello": user.name}
+    )
 
 
 @app.exception_handler(NotFound)
