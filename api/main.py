@@ -1,8 +1,4 @@
-from fastapi import FastAPI
+import uvicorn
+from frameworks_and_drivers.web.fastapi_router import app as fastapi_app
 
-app = FastAPI()
-
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+uvicorn.run(app=fastapi_app, host="0.0.0.0", port=80)

@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:3.8.3
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
