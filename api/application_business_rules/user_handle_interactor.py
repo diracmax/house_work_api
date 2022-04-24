@@ -19,3 +19,9 @@ class UserHandleInteractor(UserInputPort):
                     line_token=input_user_dto.line_token)
         self.repository.save(user)
         return self.presenter.create_view_for_save()
+
+    def update(self, input_user_dto: InputUserDTO):
+        user = User(name=input_user_dto.name, hashed_password=input_user_dto.raw_password,
+                    line_token=input_user_dto.line_token)
+        self.repository.update(user)
+        return self.presenter.create_view_for_update()

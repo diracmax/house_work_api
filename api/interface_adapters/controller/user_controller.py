@@ -11,11 +11,20 @@ class UserController:
         self.presenter = presenter
         self.repository = repository
 
-    def save(self, request: Request):
-        name: str = request.json["name"]
+    def save(self, request):
+        # TODO: request bodyを受け取る
+        name: str = request.name
         raw_password: str = request.password
         line_token: str = request.line_token
         input_user_dto: InputUserDTO = InputUserDTO(
             name=name, raw_password=raw_password, line_token=line_token)
 
         return UserHandleInteractor(self.presenter, self.repository).save(input_user_dto)
+
+    def update(self, request):
+        name: str = request.name
+        raw_password: str = request.password
+        line_token: str = request.line_token
+        input_user_dto: InputUserDTO = InputUserDTO(
+            name=name, raw_password=raw_password, line_token=line_token)
+        return UserHandleInteractor(self.presenter, self.repository).update(input_user_dto)

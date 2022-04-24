@@ -27,13 +27,8 @@ conn = connector.connect(**config)
 
 @app.get("/")
 def read_root():
-    user = User(user_id=2, name='ABC',
-                hashed_password='password', line_token='token')
-    repository = UserRepository(conn)
-    repository.save(user)
-    user_db = repository.get(user_id=2)
     return JSONResponse(
-        content={"Hello": user_db.name}
+        content={"Hello": "Taro"}
     )
 
 
@@ -45,9 +40,8 @@ class UserForPost(BaseModel):
 
 @app.post("/users")
 def post(user: UserForPost):
-    return JSONResponse(
-        content={"Hello": user.name}
-    )
+    return UserController(presenter=UserPresenter(),
+                          repository=UserRepository(conn)).save(user)
 
 
 @app.exception_handler(NotFound)

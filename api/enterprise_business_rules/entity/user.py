@@ -1,7 +1,6 @@
 class User(object):
 
-    def __init__(self, user_id, name, hashed_password, line_token):
-        assert isinstance(user_id, int)
+    def __init__(self, name, hashed_password, line_token, user_id: int = None):
         assert isinstance(name, str)
         assert isinstance(hashed_password, str)
         assert isinstance(line_token, str)
